@@ -1,0 +1,636 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Panel | Muzamil Writer</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: #0d0d0d;
+            color: #f5f0e8;
+        }
+
+        .admin-container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .admin-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .admin-heading h1 {
+            color: #d5ad62;
+            font-size: 35px;
+        }
+
+        .admin-box {
+            background: #191919;
+            border: 1px solid #51432e;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .admin-box h2 {
+            color: #d5ad62;
+            margin-bottom: 22px;
+        }
+
+        .admin-input, .admin-select, .admin-textarea {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0 20px;
+            background: #101010;
+            color: white;
+            border: 1px solid #51432e;
+            border-radius: 5px;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        .admin-textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.8;
+        }
+
+        .admin-label {
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        .admin-button {
+            padding: 13px 24px;
+            background: #c9a15b;
+            color: #111;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .admin-button:hover {
+            background: #f0d18f;
+        }
+
+        .logout-button {
+            background: #6b2929;
+            color: white;
+        }
+
+        .logout-button:hover {
+            background: #963b3b;
+        }
+
+        .admin-message {
+            margin-top: 18px;
+            color: #d5ad62;
+            line-height: 1.6;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .published-item {
+            background: #101010;
+            border: 1px solid #51432e;
+            padding: 18px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .published-item h3 {
+            color: #d5ad62;
+            margin-bottom: 10px;
+        }
+
+        .published-item p {
+            color: #bbb;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .delete-button {
+            margin-top: 12px;
+            background: #963b3b;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        @media(max-width: 550px) {
+            .admin-container {
+                margin: 20px auto;
+                padding: 12px;
+            }
+
+            .admin-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="admin-container">
+
+    <div class="admin-heading">
+        <h1>Muzamil Writer</h1>
+        <p>Admin Control Panel</p>
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <section id="loginSection" class="admin-box">
+
+        <h2>Admin Login</h2>
+
+        <form id="loginForm">
+
+            <label class="admin-label">Email Address</label>
+
+            <input
+                class="admin-input"
+                type="email"
+                id="adminEmail"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label class="admin-label">Password</label>
+
+            <input
+                class="admin-input"
+                type="password"
+                id="adminPassword"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button class="admin-button" type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <p id="loginMessage" class="admin-message"></p>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboardSection" class="hidden">
+
+        <div class="admin-box">
+
+            <div class="top-bar">
+
+                <h2>Admin Dashboard</h2>
+
+                <button
+                    class="admin-button logout-button"
+                    id="logoutButton"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+            <p>Welcome to Muzamil Writer Publishing Dashboard.</p>
+
+        </div>
+
+
+        <!-- ADD POETRY -->
+
+        <div class="admin-box">
+
+            <h2>✍️ Add New Poetry</h2>
+
+            <form id="poetryForm">
+
+                <label class="admin-label">Poetry Title</label>
+
+                <input
+                    class="admin-input"
+                    id="poetryTitle"
+                    type="text"
+                    placeholder="Enter poetry title"
+                    required
+                >
+
+                <label class="admin-label">Category</label>
+
+                <select class="admin-select" id="poetryCategory" required>
+
+                    <option value="Urdu">Urdu Poetry</option>
+                    <option value="Love">Love Poetry</option>
+                    <option value="Sad">Sad Poetry</option>
+                    <option value="English">English Poetry</option>
+
+                </select>
+
+                <label class="admin-label">Write Your Poetry</label>
+
+                <textarea
+                    class="admin-textarea"
+                    id="poetryContent"
+                    placeholder="Yahan apni poetry likhein..."
+                    required
+                ></textarea>
+
+                <label class="admin-label">
+
+                    <input type="checkbox" id="poetryPublished" checked>
+
+                    Publish immediately
+
+                </label>
+
+                <br><br>
+
+                <button class="admin-button" type="submit">
+                    Publish Poetry
+                </button>
+
+            </form>
+
+            <p id="poetryMessage" class="admin-message"></p>
+
+        </div>
+
+
+        <!-- POETRY LIST -->
+
+        <div class="admin-box">
+
+            <h2>📚 Your Published Poetry</h2>
+
+            <div id="publishedPoetry">
+                Loading poetry...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <p style="text-align:center; margin-top:30px;">
+
+        <a href="index.html" style="color:#d5ad62;">
+            ← Back to Website
+        </a>
+
+    </p>
+
+</div>
+
+
+<!-- FIREBASE SCRIPT -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    deleteDoc,
+    doc,
+    serverTimestamp,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+
+/* FIREBASE CONFIGURATION */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyCjNYTmTIexh4IB6e-paJzanPxo2Xr_KYE",
+
+    authDomain: "mubeen-writer-e6676.firebaseapp.com",
+
+    projectId: "mubeen-writer-e6676",
+
+    storageBucket: "mubeen-writer-e6676.firebasestorage.app",
+
+    messagingSenderId: "314969263716",
+
+    appId: "1:314969263716:web:7fdab51c0bebe4cc009971"
+
+};
+
+
+/* INITIALIZE */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+const loginSection = document.getElementById("loginSection");
+
+const dashboardSection = document.getElementById("dashboardSection");
+
+const loginMessage = document.getElementById("loginMessage");
+
+const poetryMessage = document.getElementById("poetryMessage");
+
+
+/* ADMIN LOGIN */
+
+document.getElementById("loginForm").addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const email = document.getElementById("adminEmail").value.trim();
+
+        const password = document.getElementById("adminPassword").value;
+
+        loginMessage.textContent = "Logging in...";
+
+        try {
+
+            await signInWithEmailAndPassword(auth, email, password);
+
+            loginMessage.textContent = "";
+
+        } catch (error) {
+
+            loginMessage.textContent = "Login failed: " + error.message;
+
+        }
+
+    }
+);
+
+
+/* LOGIN STATUS */
+
+onAuthStateChanged(auth, function(user) {
+
+    if (user) {
+
+        loginSection.classList.add("hidden");
+
+        dashboardSection.classList.remove("hidden");
+
+        loadPoetry();
+
+    } else {
+
+        loginSection.classList.remove("hidden");
+
+        dashboardSection.classList.add("hidden");
+
+    }
+
+});
+
+
+/* PUBLISH POETRY */
+
+document.getElementById("poetryForm").addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const user = auth.currentUser;
+
+        if (!user) {
+
+            poetryMessage.textContent = "Please login first.";
+
+            return;
+
+        }
+
+        const title = document.getElementById("poetryTitle").value.trim();
+
+        const category = document.getElementById("poetryCategory").value;
+
+        const content = document.getElementById("poetryContent").value.trim();
+
+        const published = document.getElementById("poetryPublished").checked;
+
+        if (!title || !content) return;
+
+        poetryMessage.textContent = "Publishing...";
+
+        try {
+
+            await addDoc(collection(db, "poems"), {
+
+                title: title,
+
+                category: category,
+
+                content: content,
+
+                published: published,
+
+                author: "Muzamil Writer",
+
+                createdAt: serverTimestamp()
+
+            });
+
+            document.getElementById("poetryForm").reset();
+
+            document.getElementById("poetryPublished").checked = true;
+
+            poetryMessage.textContent = "Poetry saved successfully! By Muzamil Writer.";
+
+            loadPoetry();
+
+        } catch (error) {
+
+            poetryMessage.textContent = "Error: " + error.message;
+
+            console.error(error);
+
+        }
+
+    }
+);
+
+
+/* LOAD ADMIN POETRY */
+
+async function loadPoetry() {
+
+    const container = document.getElementById("publishedPoetry");
+
+    container.textContent = "Loading...";
+
+    try {
+
+        const poetryQuery = query(
+
+            collection(db, "poems"),
+
+            orderBy("createdAt", "desc")
+
+        );
+
+        const snapshot = await getDocs(poetryQuery);
+
+        container.replaceChildren();
+
+        if (snapshot.empty) {
+
+            container.textContent = "No poetry added yet.";
+
+            return;
+
+        }
+
+        snapshot.forEach(function(item) {
+
+            const data = item.data();
+
+            const card = document.createElement("div");
+
+            card.className = "published-item";
+
+
+            const title = document.createElement("h3");
+
+            title.textContent = data.title || "Untitled";
+
+
+            const category = document.createElement("p");
+
+            category.textContent = "Category: " + (data.category || "");
+
+
+            const content = document.createElement("p");
+
+            content.textContent = data.content || "";
+
+
+            const author = document.createElement("p");
+
+            author.textContent = "Author: " + (data.author || "Muzamil Writer");
+
+
+            const status = document.createElement("p");
+
+            status.textContent = data.published ? "Published" : "Draft";
+
+
+            const deleteButton = document.createElement("button");
+
+            deleteButton.className = "delete-button";
+
+            deleteButton.textContent = "Delete";
+
+
+            deleteButton.addEventListener("click", async function() {
+
+                if (!confirm("Are you sure you want to delete this poetry?")) return;
+
+                try {
+
+                    await deleteDoc(doc(db, "poems", item.id));
+
+                    loadPoetry();
+
+                } catch (error) {
+
+                    alert("Delete failed: " + error.message);
+
+                }
+
+            });
+
+
+            card.append(
+
+                title,
+
+                category,
+
+                content,
+
+                author,
+
+                status,
+
+                deleteButton
+
+            );
+
+            container.appendChild(card);
+
+        });
+
+    } catch (error) {
+
+        container.textContent = "Could not load poetry: " + error.message;
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* LOGOUT */
+
+document.getElementById("logoutButton").addEventListener(
+    "click",
+    async function() {
+
+        await signOut(auth);
+
+    }
+);
+
+</script>
+
+</body>
+</html>
